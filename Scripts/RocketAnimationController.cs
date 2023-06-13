@@ -14,7 +14,7 @@ public class RocketAnimationController : Singleton<RocketAnimationController>
 
     public void animateRocket()
     {
-        rocketElements.transform.DOMoveY(300, 30f);
+        rocketElements.transform.DOMoveY(600, 45f);
     }
 
     public void resetRocketAnimation()

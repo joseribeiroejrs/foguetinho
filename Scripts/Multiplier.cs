@@ -18,24 +18,18 @@ public class Multiplier : MonoBehaviour
     public Button stopButton;
     public float balance = 1000;
     public float chanceToWin = 70f; // Um numero de 0 a 100 representando a chance de vencer
-    
-    public Camera cam;
-    public float transitionColorDuration = 1f;
-    public Color winColor = Color.green;
-    public Color inGameColor = Color.blue;
-    public Color inGameSecondaryColor = Color.blue;
-    public Color loserColor = Color.red;
+
+    public BackgroundColorController backgroundColorController;
 
     void Start()
     {
         initGame();
-        cam.clearFlags = CameraClearFlags.SolidColor;
     }
 
     void Update()
     {
-        chooseBackgroundColor();
         chooseButtonToShow();
+        backgroundColorController.chooseBackgroundColor(isEndGame, isWinner);
     }
 
     IEnumerator UpdateMultiplier()
@@ -69,34 +63,6 @@ public class Multiplier : MonoBehaviour
     void UpdateMultiplierText(float newValue)
 	{
         multiplierText.text = newValue.ToString("F1").Replace(",", ".") + "x";
-	}
-
-    void changeColorInGame()
-	{
-        float t = Mathf.PingPong(Time.time, transitionColorDuration) / transitionColorDuration;
-        cam.backgroundColor = Color.Lerp(inGameColor, inGameSecondaryColor, t);
-    }
-    void chooseBackgroundColor()
-	{
-        if (!isEndGame)
-		{
-            if (isWinner)
-			{
-                cam.backgroundColor = winColor;
-            } else
-			{
-                changeColorInGame();
-			}
-		} else
-		{
-            if (isWinner)
-			{
-                cam.backgroundColor = winColor;
-			} else
-			{
-                cam.backgroundColor = loserColor;
-			}
-		}
 	}
 
     void chooseButtonToShow()
