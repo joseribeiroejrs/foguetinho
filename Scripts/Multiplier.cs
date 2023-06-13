@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,10 @@ public class Multiplier : MonoBehaviour
     public float timeToUpdateMultiplier = 1f;
     public TMPro.TextMeshProUGUI multiplierText;
     public TMPro.TextMeshProUGUI winnerMultiplierText;
+    public GameObject rocketElements;
+    public Canvas canvas;
+    public GameObject rocketPath;
+    public GameObject rocketPathSelected;
     public Button restartButton;
     public Button stopButton;
     public float balance = 1000;
@@ -23,6 +28,7 @@ public class Multiplier : MonoBehaviour
     public Color inGameColor = Color.blue;
     public Color inGameSecondaryColor = Color.blue;
     public Color loserColor = Color.red;
+    public Color rocketPathSelectedColor = Color.blue;
 
     void Start()
     {
@@ -51,6 +57,12 @@ public class Multiplier : MonoBehaviour
 	{
         resetGame();
         StartCoroutine(UpdateMultiplier());
+        animateRocket();
+    }
+
+    public void animateRocket()
+	{
+        rocketElements.transform.DOMoveY(300, 30f);
     }
 
     public void resetGame()
@@ -58,7 +70,16 @@ public class Multiplier : MonoBehaviour
         isEndGame = false;
         isWinner = false;
         multiplierNumber = 1f;
+        UpdateMultiplierText(multiplierNumber);
         winnerMultiplierText.text = "";
+        
+        rocketPathSelected.transform.SetParent(rocketElements.transform);
+        //rocketPathSelected.GetComponent<RawImage>().color = Color.white;
+        rocketPath.GetComponent<RawImage>().color = Color.white;
+
+        rocketPathSelected.transform.position = new Vector2(rocketPath.transform.position.x, rocketPath.transform.position.y);
+
+        rocketElements.transform.DOMoveY(0, 0);
     }
 
     void UpdateMultiplierText(float newValue)
@@ -100,10 +121,18 @@ public class Multiplier : MonoBehaviour
 		{
             restartButton.gameObject.SetActive(true);
             stopButton.gameObject.SetActive(false);
-        } else
+            stopButton.GetComponent<Button>().interactable = true;
+        }
+        else
 		{
             restartButton.gameObject.SetActive(false);
             stopButton.gameObject.SetActive(true);
+
+            if (isWinner)
+			{
+                stopButton.GetComponent<Button>().interactable = false;
+                //stopButton.gameObject.SetActive(false);
+			}
         }
 	}
 
@@ -111,6 +140,9 @@ public class Multiplier : MonoBehaviour
 	{
         isWinner = true;
         winnerMultiplierText.text = multiplierNumber.ToString("F1").Replace(",", ".") + "x";
+        rocketPathSelected.transform.SetParent(canvas.transform);
+        rocketPath.GetComponent<RawImage>().color = rocketPathSelectedColor;
+        // rocketPathSelected.GetComponent<RawImage>().color = rocketPathSelectedColor;
     }
     void canStopGame()
 	{
@@ -118,6 +150,7 @@ public class Multiplier : MonoBehaviour
         if (randomNumber > chanceToWin)
 		{
             isEndGame = true;
+            rocketElements.transform.DOPause();
         }
 	}
 }
