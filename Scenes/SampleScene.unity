@@ -1259,7 +1259,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: 18.400024, y: 0}
-  m_SizeDelta: {x: 250, y: 1000}
+  m_SizeDelta: {x: 250, y: 3000}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1107802608
 MonoBehaviour:
@@ -1434,6 +1434,55 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1178759086}
   m_CullTransparentMesh: 1
+--- !u!1 &1207151150
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1207151152}
+  - component: {fileID: 1207151151}
+  m_Layer: 0
+  m_Name: RocketAnimationController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1207151151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1207151150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b887cbc68a3a0d6409948dbf0ceee7e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canvas: {fileID: 177882350}
+  rocketElements: {fileID: 1580897921}
+  rocketPath: {fileID: 346999675}
+  rocketPathSelected: {fileID: 1996216289}
+  rocketPathSelectedColor: {r: 0.91764706, g: 0.33333334, b: 0.33333334, a: 1}
+--- !u!4 &1207151152
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1207151150}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1268703715
 GameObject:
   m_ObjectHideFlags: 0
@@ -1466,21 +1515,16 @@ MonoBehaviour:
   timeToUpdateMultiplier: 0.5
   multiplierText: {fileID: 799482919}
   winnerMultiplierText: {fileID: 1380029703}
-  rocketElements: {fileID: 1580897921}
-  canvas: {fileID: 177882350}
-  rocketPath: {fileID: 346999675}
-  rocketPathSelected: {fileID: 1996216289}
   restartButton: {fileID: 539474265}
   stopButton: {fileID: 1178759088}
   balance: 1000
-  chanceToWin: 85
+  chanceToWin: 93
   cam: {fileID: 519420031}
   transitionColorDuration: 1
   winColor: {r: 0.11372549, g: 0.6431373, b: 0.3647059, a: 1}
   inGameColor: {r: 0.3066038, g: 0.5745934, b: 1, a: 1}
   inGameSecondaryColor: {r: 0.56181026, g: 0.73681116, b: 0.9528302, a: 1}
   loserColor: {r: 0.91764706, g: 0.33333334, b: 0.33333334, a: 1}
-  rocketPathSelectedColor: {r: 0.9176471, g: 0.33333334, b: 0.33333334, a: 1}
 --- !u!4 &1268703717
 Transform:
   m_ObjectHideFlags: 0

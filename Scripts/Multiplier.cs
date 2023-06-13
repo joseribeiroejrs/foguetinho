@@ -13,10 +13,7 @@ public class Multiplier : MonoBehaviour
     public float timeToUpdateMultiplier = 1f;
     public TMPro.TextMeshProUGUI multiplierText;
     public TMPro.TextMeshProUGUI winnerMultiplierText;
-    public GameObject rocketElements;
-    public Canvas canvas;
-    public GameObject rocketPath;
-    public GameObject rocketPathSelected;
+
     public Button restartButton;
     public Button stopButton;
     public float balance = 1000;
@@ -28,7 +25,6 @@ public class Multiplier : MonoBehaviour
     public Color inGameColor = Color.blue;
     public Color inGameSecondaryColor = Color.blue;
     public Color loserColor = Color.red;
-    public Color rocketPathSelectedColor = Color.blue;
 
     void Start()
     {
@@ -57,12 +53,7 @@ public class Multiplier : MonoBehaviour
 	{
         resetGame();
         StartCoroutine(UpdateMultiplier());
-        animateRocket();
-    }
-
-    public void animateRocket()
-	{
-        rocketElements.transform.DOMoveY(300, 30f);
+        RocketAnimationController.instance.animateRocket();
     }
 
     public void resetGame()
@@ -72,14 +63,7 @@ public class Multiplier : MonoBehaviour
         multiplierNumber = 1f;
         UpdateMultiplierText(multiplierNumber);
         winnerMultiplierText.text = "";
-        
-        rocketPathSelected.transform.SetParent(rocketElements.transform);
-        //rocketPathSelected.GetComponent<RawImage>().color = Color.white;
-        rocketPath.GetComponent<RawImage>().color = Color.white;
-
-        rocketPathSelected.transform.position = new Vector2(rocketPath.transform.position.x, rocketPath.transform.position.y);
-
-        rocketElements.transform.DOMoveY(0, 0);
+        RocketAnimationController.instance.resetRocketAnimation();
     }
 
     void UpdateMultiplierText(float newValue)
@@ -140,17 +124,15 @@ public class Multiplier : MonoBehaviour
 	{
         isWinner = true;
         winnerMultiplierText.text = multiplierNumber.ToString("F1").Replace(",", ".") + "x";
-        rocketPathSelected.transform.SetParent(canvas.transform);
-        rocketPath.GetComponent<RawImage>().color = rocketPathSelectedColor;
-        // rocketPathSelected.GetComponent<RawImage>().color = rocketPathSelectedColor;
+        RocketAnimationController.instance.playerStopGame();
     }
     void canStopGame()
 	{
-        float randomNumber = Random.Range(0, 100);
+        float randomNumber = Random.Range(0f, 100f);
         if (randomNumber > chanceToWin)
 		{
             isEndGame = true;
-            rocketElements.transform.DOPause();
+            RocketAnimationController.instance.pauseAnimation();
         }
 	}
 }
